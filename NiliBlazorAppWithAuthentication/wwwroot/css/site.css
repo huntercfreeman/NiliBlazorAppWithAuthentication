@@ -210,3 +210,9 @@ app {
 .guestContent {
     color: white;
 }
+
+.dateObjectRenderer {
+    width: 14.285%;
+    min-height: 14.285vh;
+    border: 1px solid black;
+}

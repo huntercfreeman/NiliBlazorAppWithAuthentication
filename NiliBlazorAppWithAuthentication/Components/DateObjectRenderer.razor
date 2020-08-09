@@ -1,3 +1,9 @@
-﻿<div style="width:14.285%">
-    @DateObject.Date.ToString();
+﻿<div @onclick="((e) => AddEventObject(e))" class="dateObjectRenderer">
+    <div>@DateObject.Date.ToString();</div>
+    <div>
+        @foreach(var eventObject in DateObject.Events ?? new List<Models.EventObject> { })
+        {
+            <EventObjectRenderer EventObject="@eventObject"/>
+        }
+    </div>
 </div>
