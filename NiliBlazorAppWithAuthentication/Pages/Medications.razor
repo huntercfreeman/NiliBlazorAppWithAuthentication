@@ -1,5 +1,43 @@
 ﻿@page "/medications"
-<h3>Medications</h3>
+@using DM2BD.Typeahead
+@using NiliBlazorAppWithAuthentication.Models 
+@using NiliBlazorAppWithAuthentication.Services.Interfaces
+
+
+<div>
+    <div style="display: flex;">
+        <div style="font-size: 40px;">List Of Medications</div>
+        <div style="align-items: center; display: flex;">
+            <Typeahead ItemType="Medication" DisplayAutocompleteDropdown="true" Selector="((Medication x) => x.Name)" Text="Search:" Placeholder=""
+                       Filter="(async (x) => MedicationService.GetMedicationsByName(x))" OnAutocomplete="((x) => { MedicationsList = x; StateHasChanged(); })" ResultsAreSame="true">
+                <AutocompleteDropdownItemTemplate Context="searchContext">
+                    <div>@searchContext.Name</div>
+                </AutocompleteDropdownItemTemplate>
+                <SubmitButtonTemplate>
+                    <span class="input-group-addon primary" style="height: 100%; width: auto; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                        <i class="fa fa-search"></i>
+                    </span>
+                </SubmitButtonTemplate>
+            </Typeahead>
+        </div>
+    </div>
+    <GenericGridList TItem="Medication" Items="MedicationsList">
+        <ItemTemplate Context="medication">
+            <div draggable="true" style="margin-bottom: 5px; display: flex; flex-direction: column;">
+                <div>
+                    <h5>@medication.Name</h5>
+                </div>
+            </div>
+        </ItemTemplate>
+    </GenericGridList>
+
+    <div>
+        My Medications....
+        <div>
+            HELLO WORLD
+        </div>
+    </div>
+</div>
 
 @code {
 

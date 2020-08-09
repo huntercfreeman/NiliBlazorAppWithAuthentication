@@ -16,6 +16,8 @@ using Microsoft.Extensions.Hosting;
 using NiliBlazorAppWithAuthentication.Areas.Identity;
 using NiliBlazorAppWithAuthentication.Data;
 using NiliBlazorAppWithAuthentication.Shared;
+using NiliBlazorAppWithAuthentication.Services.Interfaces;
+using NiliBlazorAppWithAuthentication.Services.Implementations;
 
 namespace NiliBlazorAppWithAuthentication
 {
@@ -42,6 +44,7 @@ namespace NiliBlazorAppWithAuthentication
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddSingleton<WeatherForecastService>();
             services.AddScoped<EventObjectFormState>();
+            services.AddScoped<IMedicationService, MedicationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

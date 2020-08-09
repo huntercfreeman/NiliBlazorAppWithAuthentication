@@ -1,11 +1,11 @@
 ﻿using NiliBlazorAppWithAuthentication.Models;
-using NiliBlazorAppWithAuthentication.Services.Implementations;
+using NiliBlazorAppWithAuthentication.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NiliBlazorAppWithAuthentication.Services.Interfaces
+namespace NiliBlazorAppWithAuthentication.Services.Implementations
 {
     public class DateService : IDateService
     {
