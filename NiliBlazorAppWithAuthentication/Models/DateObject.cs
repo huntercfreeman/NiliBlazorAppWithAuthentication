@@ -8,6 +8,6 @@ namespace NiliBlazorAppWithAuthentication.Models
     public class DateObject
     {
         public DateTime Date { get; set; }
-        public List<EventObject> Events { get; set; }
+        public List<EventObject> Events { get; set; } = new List<EventObject>();
     }
 }

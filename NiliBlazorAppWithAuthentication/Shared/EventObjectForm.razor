@@ -2,7 +2,10 @@
 
 <div style="box-shadow: 10px 10px 5px grey; background-color: lightgray; position: fixed; z-index: 10; border: 1px solid red; @(EventObjectFormState.IsDisplayed ? "" : "display: none;") width:20vw; height: 20vh; left: @(EventObjectFormState.XCoordinate)px; top: @(EventObjectFormState.YCoordinate)px;" class="eventObjectForm">
     <EditForm EditContext="this.EditContext"> 
-        
+        <div>Hello @this.EventObjectFormState.CurrentDateObject.Date.ToString()</div>
+        <button @onclick="SubmitForm">
+            Submit
+        </button>
     </EditForm>
 </div>
 

@@ -1,4 +1,4 @@
-﻿<div @onclick="((e) => AddEventObject(e))" class="dateObjectRenderer">
+﻿<div style="@IsSelectedCSS" @onclick="((e) => AddEventObject(e))" class="dateObjectRenderer">
     <div>@DateObject.Date.ToString();</div>
     <div>
         @foreach(var eventObject in DateObject.Events ?? new List<Models.EventObject> { })
