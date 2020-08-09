@@ -7,6 +7,7 @@ namespace NiliBlazorAppWithAuthentication.Common
 {
     public static class WellKnownValues
     {
-        public string AppTitle { get; set; }
+        public static string AppTitle = "NiliBlazor";
+        public static string LandingPageBackground = "content/images/bit-cloud-cGGMB6Vy_uU-unsplash.jpg";
     }
 }
