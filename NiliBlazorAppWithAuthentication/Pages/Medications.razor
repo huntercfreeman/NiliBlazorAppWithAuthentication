@@ -9,7 +9,7 @@
             <div style="font-size: 40px;">List Of Medications</div>
             <div style="align-items: center; display: flex;">
                 <Typeahead ItemType="Medication" DisplayAutocompleteDropdown="true" Selector="((Medication x) => x.Name)" Text="Search:" Placeholder=""
-                           Filter="(async (x) => MedicationService.GetMedicationsByName(x))" OnAutocomplete="((x) => { MedicationsList = x; StateHasChanged(); })" ResultsAreSame="true">
+                           Filter="(async (x) => MedicationService.GetMedicationsByName(x))" OnAutocomplete="((x) => { MedicationService.FilteredSet = x; StateHasChanged(); })" ResultsAreSame="true">
                     <AutocompleteDropdownItemTemplate Context="searchContext">
                         <div>@searchContext.Name</div>
                     </AutocompleteDropdownItemTemplate>
@@ -26,7 +26,7 @@
         {
             <h2>@type</h2>
             <div class="row">
-                @foreach (var medication in MedicationService.GetMedicationsByType(type))
+                @foreach (var medication in MedicationService.GetMedicationsOfType(type))
                 {
                     <div class="col-md-4 col-xl-3">
                         <div @ondragstart="(() => MedicationBeingDragged = medication)" draggable="true" style="margin-bottom: 5px; display: flex; flex-direction: column;">

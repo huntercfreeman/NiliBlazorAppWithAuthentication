@@ -19,11 +19,11 @@ namespace NiliBlazorAppWithAuthentication.Services.Implementations
             typeMaping.Add("Methylphenidate", _methylphenidates);
             typeMaping.Add("Amphetamine", _amphetamines);
 
-            foreach(Medication medication in _medications)
+            foreach (Medication medication in _medications)
             {
-                foreach(string type in medication.Types)
+                foreach (string type in medication.Types)
                 {
-                    switch(type)
+                    switch (type)
                     {
                         case "SSRI":
                             _SSRIs.Add(medication);
@@ -53,6 +53,74 @@ namespace NiliBlazorAppWithAuthentication.Services.Implementations
             }
         }
 
+        private void CalculateFilteredLists()
+        {
+            _filteredTypeMaping = new Dictionary<string, List<Medication>>();
+
+            _filteredSSRIs = new List<Medication>();
+            _filteredAntidepressants = new List<Medication>();
+            _filteredMoodStabilizers = new List<Medication>();
+            _filteredAntipsychotics = new List<Medication>();
+            _filteredNDRIs = new List<Medication>();
+            _filteredMethylphenidates = new List<Medication>();
+            _filteredAmphetamines = new List<Medication>();
+
+            _filteredTypeMaping.Add("SSRI", _filteredSSRIs);
+            _filteredTypeMaping.Add("Antidepressant", _filteredAntidepressants);
+            _filteredTypeMaping.Add("Mood Stabilizer", _filteredMoodStabilizers);
+            _filteredTypeMaping.Add("Antipsychotic", _filteredAntipsychotics);
+            _filteredTypeMaping.Add("NDRI", _filteredNDRIs);
+            _filteredTypeMaping.Add("Methylphenidate", _filteredMethylphenidates);
+            _filteredTypeMaping.Add("Amphetamine", _filteredAmphetamines);
+
+            foreach (Medication medication in FilteredSet)
+            {
+                foreach (string type in medication.Types)
+                {
+                    switch (type)
+                    {
+                        case "SSRI":
+                            _filteredSSRIs.Add(medication);
+                            break;
+                        case "Antidepressant":
+                            _filteredAntidepressants.Add(medication);
+                            break;
+                        case "Mood Stabilizer":
+                            _filteredMoodStabilizers.Add(medication);
+                            break;
+                        case "Antipsychotic":
+                            _filteredAntipsychotics.Add(medication);
+                            break;
+                        case "NDRI":
+                            _filteredNDRIs.Add(medication);
+                            break;
+                        case "Methylphenidate":
+                            _filteredMethylphenidates.Add(medication);
+                            break;
+                        case "Amphetamine":
+                            _filteredAmphetamines.Add(medication);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+
+
+        // FILTERED
+        private Dictionary<string, List<Medication>> _filteredTypeMaping = new Dictionary<string, List<Medication>>();
+
+        private List<Medication> _filteredSSRIs = new List<Medication>();
+        private List<Medication> _filteredAntidepressants = new List<Medication>();
+        private List<Medication> _filteredMoodStabilizers = new List<Medication>();
+        private List<Medication> _filteredAntipsychotics = new List<Medication>();
+        private List<Medication> _filteredNDRIs = new List<Medication>();
+        private List<Medication> _filteredMethylphenidates = new List<Medication>();
+        private List<Medication> _filteredAmphetamines = new List<Medication>();
+
+
+        // UNFILTERED
         private readonly Dictionary<string, List<Medication>> typeMaping = new Dictionary<string, List<Medication>>();
 
         private readonly List<Medication> _SSRIs = new List<Medication>();
@@ -71,7 +139,7 @@ namespace NiliBlazorAppWithAuthentication.Services.Implementations
                 Dosages = new List<double> { 10, 20, 40 } },
             new Medication { Name = "Lithium", Types = new List<string> { "Mood Stabilizer" },
                 Dosages = new List<double> { 300, 450, 600 } },
-            new Medication { Name = "Risperdal", Types = new List<string> { "Antipsychotic" }, 
+            new Medication { Name = "Risperdal", Types = new List<string> { "Antipsychotic" },
                 Dosages = new List<double> { 1, 2, 3, 4 } },
             new Medication { Name = "Luvox CR", Types = new List<string> { "SSRI", "Antidepressant" },
                 Dosages = new List<double> { 1, 2, 3, 4 } },
@@ -123,7 +191,7 @@ namespace NiliBlazorAppWithAuthentication.Services.Implementations
                 Dosages = new List<double> { 1, 2, 3, 4 } }
         };
 
-        private readonly List<string> _medicationTypes = new List<string> 
+        private readonly List<string> _medicationTypes = new List<string>
         {
             "SSRI",
             "Antidepressant",
@@ -134,9 +202,22 @@ namespace NiliBlazorAppWithAuthentication.Services.Implementations
             "Amphetamine"
         };
 
+        private List<Medication> _filteredSet;
+        public List<Medication> FilteredSet
+        {
+            get => _filteredSet;
+            set
+            {
+                _filteredSet = value;
+                CalculateFilteredLists();
+            }
+        }
+
         public List<Medication> GetMedications()
         {
-            return _medications;
+            if (FilteredSet == null)
+                return _medications;
+            return FilteredSet;
         }
 
         public List<Medication> GetMedicationsByName(string name)
@@ -151,38 +232,9 @@ namespace NiliBlazorAppWithAuthentication.Services.Implementations
 
         public List<Medication> GetMedicationsOfType(string type)
         {
-            return typeMaping[type];
+            return _filteredSet == null ? typeMaping[type] : _filteredTypeMaping[type];
         }
 
-        public List<Medication> GetMedicationsByType(string type)
-        {
-            switch (type)
-            {
-                case "SSRI":
-                    return _SSRIs;
-                    break;
-                case "Antidepressant":
-                    return _antidepressants;
-                    break;
-                case "Mood Stabilizer":
-                    return _moodStabilizers;
-                    break;
-                case "Antipsychotic":
-                    return _antipsychotics;
-                    break;
-                case "NDRI":
-                    return _NDRIs;
-                    break;
-                case "Methylphenidate":
-                    return _methylphenidates;
-                    break;
-                case "Amphetamine":
-                    return _amphetamines;
-                    break;
-                default:
-                    return new List<Medication>();
-                    break;
-            }
-        }
+        
     }
 }
