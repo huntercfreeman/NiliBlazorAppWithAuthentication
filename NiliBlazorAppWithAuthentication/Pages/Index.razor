@@ -1,7 +1,9 @@
 ﻿@page "/"
 @using NiliBlazorAppWithAuthentication.Components
+@using NiliBlazorAppWithAuthentication.Models
 
-Hello world!
+<Calendar Dates="@(new List<DateObject> { new DateObject { Date = DateTime.Today }, new DateObject { Date = DateTime.Now } })"/>
+
 @code
 {
     [Inject]

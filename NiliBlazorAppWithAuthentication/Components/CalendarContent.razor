@@ -1,0 +1,7 @@
+﻿@using NiliBlazorAppWithAuthentication.Models
+<div class="calendarContent row">
+    @foreach(DateObject date in Dates)
+    {
+        <DateObjectRenderer DateObject="@date" />
+    }
+</div>
