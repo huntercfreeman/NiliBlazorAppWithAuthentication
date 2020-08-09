@@ -1,16 +1,7 @@
 ﻿@page "/"
-@layout GuestLayout
 @using NiliBlazorAppWithAuthentication.Components
 
-<AuthorizeView>
-    <Authorized>
-        @{NavigationManager.NavigateTo("counter");}
-    </Authorized>
-    <NotAuthorized>
-        <NotAuthorizedIndex />
-    </NotAuthorized>
-</AuthorizeView>
-
+Hello world!
 @code
 {
     [Inject]
