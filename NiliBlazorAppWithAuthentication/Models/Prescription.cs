@@ -7,6 +7,7 @@ namespace NiliBlazorAppWithAuthentication.Models
 {
     public class Prescription
     {
+        public string NDCCode { get; set; } = Guid.NewGuid().ToString();
         public Medication Medication { get; set; }
         public double Dosage { get; set; }
         public string Description { get; set; }
