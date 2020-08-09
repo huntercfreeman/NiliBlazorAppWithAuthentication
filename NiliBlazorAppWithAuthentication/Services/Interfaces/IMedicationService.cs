@@ -13,5 +13,8 @@ namespace NiliBlazorAppWithAuthentication.Services.Interfaces
         public List<Medication> GetMedicationsOfType(string type);
         List<string> GetMedicationTypes();
         public List<Medication> FilteredSet { get; set; }
+
+        public List<Medication> GetMedicationsByUser(string username);
+        public void AddMedicationToUser(string username, Medication medication);
     }
 }

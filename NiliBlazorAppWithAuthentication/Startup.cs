@@ -46,6 +46,7 @@ namespace NiliBlazorAppWithAuthentication
             services.AddScoped<EventObjectFormState>();
             services.AddScoped<IMedicationService, MedicationService>();
             services.AddHttpContextAccessor();
+            services.AddScoped<MedicationDragEventState>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -13,8 +13,14 @@ namespace NiliBlazorAppWithAuthentication.Pages
     {
         [Inject]
         public IMedicationService MedicationService { get; set; }
-        
-        public Medication MedicationBeingDragged { get; set; }
+        [Inject]
+        public MedicationDragEventState MedicationDragEventState { get; set; }
+
+        public Medication MedicationBeingDragged 
+        {
+            get => MedicationDragEventState.MedicationBeingDragged;
+            set => MedicationDragEventState.MedicationBeingDragged = value;
+        }
         public bool IsHoveringPillContainer { get; set; }
         public Medication MedicationBeingEdited { get; set; }
         public List<Medication> MedicationsList { get; set; }

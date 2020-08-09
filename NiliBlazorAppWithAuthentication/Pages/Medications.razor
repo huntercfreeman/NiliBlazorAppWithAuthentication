@@ -29,7 +29,7 @@
                 @foreach (var medication in MedicationService.GetMedicationsOfType(type))
                 {
                     <div class="col-md-4 col-xl-3">
-                        <div @ondragstart="(() => MedicationBeingDragged = medication)" draggable="true" style="margin-bottom: 5px; display: flex; flex-direction: column;">
+                        <div @ondragstart="(() => { MedicationBeingDragged = medication; MedicationDragEventState.ReRenderEventInvoke(new EventArgs()); })" draggable="true" style="margin-bottom: 5px; display: flex; flex-direction: column;">
                             <div>
                                 <h5>@medication.Name</h5>
                             </div>

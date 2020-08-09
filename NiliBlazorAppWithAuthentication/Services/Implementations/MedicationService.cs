@@ -107,6 +107,7 @@ namespace NiliBlazorAppWithAuthentication.Services.Implementations
             }
         }
 
+        private readonly Dictionary<string, List<Medication>> usernameMedicationMap = new Dictionary<string, List<Medication>>();
 
         // FILTERED
         private Dictionary<string, List<Medication>> _filteredTypeMaping = new Dictionary<string, List<Medication>>();
@@ -235,6 +236,31 @@ namespace NiliBlazorAppWithAuthentication.Services.Implementations
             return _filteredSet == null ? typeMaping[type] : _filteredTypeMaping[type];
         }
 
-        
+        public List<Medication> GetMedicationsByUser(string username)
+        {
+            try
+            {
+                return usernameMedicationMap[username];
+            }
+            catch(Exception)
+            {
+                return new List<Medication>();
+            }
+        }
+
+        public void AddMedicationToUser(string username, Medication medication)
+        {
+            try
+            {
+                usernameMedicationMap[username].Add(medication);
+            }
+            catch (Exception)
+            {
+                List<Medication> tempMedications = new List<Medication>();
+                tempMedications.Add(medication);
+
+                usernameMedicationMap.Add(username, tempMedications);
+            }
+        }
     }
 }
