@@ -10,5 +10,6 @@ namespace NiliBlazorAppWithAuthentication.Services.Interfaces
     {
         public List<Medication> GetMedications();
         public List<Medication> GetMedicationsByName(string name);
+        public List<Medication> GetMedicationsByType(string type);
     }
 }
