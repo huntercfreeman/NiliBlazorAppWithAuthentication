@@ -4,40 +4,51 @@
 @using NiliBlazorAppWithAuthentication.Services.Interfaces
 
 
-<div>
-    <div style="display: flex;">
-        <div style="font-size: 40px;">List Of Medications</div>
-        <div style="align-items: center; display: flex;">
-            <Typeahead ItemType="Medication" DisplayAutocompleteDropdown="true" Selector="((Medication x) => x.Name)" Text="Search:" Placeholder=""
-                       Filter="(async (x) => MedicationService.GetMedicationsByName(x))" OnAutocomplete="((x) => { MedicationsList = x; StateHasChanged(); })" ResultsAreSame="true">
-                <AutocompleteDropdownItemTemplate Context="searchContext">
-                    <div>@searchContext.Name</div>
-                </AutocompleteDropdownItemTemplate>
-                <SubmitButtonTemplate>
-                    <span class="input-group-addon primary" style="height: 100%; width: auto; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
-                        <i class="fa fa-search"></i>
-                    </span>
-                </SubmitButtonTemplate>
-            </Typeahead>
-        </div>
-    </div>
-    <GenericGridList TItem="Medication" Items="MedicationsList">
-        <ItemTemplate Context="medication">
-            <div @ondragstart="(() => MedicationBeingDragged = medication)" draggable="true" style="margin-bottom: 5px; display: flex; flex-direction: column;">
-                <div>
-                    <h5>@medication.Name</h5>
-                </div>
-            </div>
-        </ItemTemplate>
-    </GenericGridList>
-
     <div>
-        Drag a to the prescription box to add a medication to your list.
-        <div @ondragenter="(() => IsHoveringPillContainer = true)" @onmouseup="OnDragEnd" @ondragend="OnDragEnd">
-            @(MedicationBeingEdited?.Name ?? "HERE!")
+        <div style="display: flex;">
+            <div style="font-size: 40px;">List Of Medications</div>
+            <div style="align-items: center; display: flex;">
+                <Typeahead ItemType="Medication" DisplayAutocompleteDropdown="true" Selector="((Medication x) => x.Name)" Text="Search:" Placeholder=""
+                           Filter="(async (x) => MedicationService.GetMedicationsByName(x))" OnAutocomplete="((x) => { MedicationsList = x; StateHasChanged(); })" ResultsAreSame="true">
+                    <AutocompleteDropdownItemTemplate Context="searchContext">
+                        <div>@searchContext.Name</div>
+                    </AutocompleteDropdownItemTemplate>
+                    <SubmitButtonTemplate>
+                        <span class="input-group-addon primary" style="height: 100%; width: auto; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                            <i class="fa fa-search"></i>
+                        </span>
+                    </SubmitButtonTemplate>
+                </Typeahead>
+            </div>
+        </div>
+
+        @foreach (var type in MedicationService.GetMedicationTypes())
+        {
+            <h2>@type</h2>
+            <div class="row">
+                @foreach (var medication in MedicationService.GetMedicationsByType(type))
+                {
+                    <div class="col-md-4 col-xl-3">
+                        <div @ondragstart="(() => MedicationBeingDragged = medication)" draggable="true" style="margin-bottom: 5px; display: flex; flex-direction: column;">
+                            <div>
+                                <h5>@medication.Name</h5>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <hr />
+        }
+
+
+
+        <div>
+            Drag a to the prescription box to add a medication to your list.
+            <div @ondragenter="(() => IsHoveringPillContainer = true)" @onmouseup="OnDragEnd" @ondragend="OnDragEnd">
+                @(MedicationBeingEdited?.Name ?? "HERE!")
+            </div>
         </div>
     </div>
-</div>
 
 @code {
 

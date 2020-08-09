@@ -11,6 +11,14 @@ namespace NiliBlazorAppWithAuthentication.Services.Implementations
     {
         public MedicationService()
         {
+            typeMaping.Add("SSRI", _SSRIs);
+            typeMaping.Add("Antidepressant", _antidepressants);
+            typeMaping.Add("Mood Stabilizer", _moodStabilizers);
+            typeMaping.Add("Antipsychotic", _antipsychotics);
+            typeMaping.Add("NDRI", _NDRIs);
+            typeMaping.Add("Methylphenidate", _methylphenidates);
+            typeMaping.Add("Amphetamine", _amphetamines);
+
             foreach(Medication medication in _medications)
             {
                 foreach(string type in medication.Types)
@@ -44,6 +52,8 @@ namespace NiliBlazorAppWithAuthentication.Services.Implementations
                 }
             }
         }
+
+        private readonly Dictionary<string, List<Medication>> typeMaping = new Dictionary<string, List<Medication>>();
 
         private readonly List<Medication> _SSRIs = new List<Medication>();
         private readonly List<Medication> _antidepressants = new List<Medication>();
@@ -113,6 +123,17 @@ namespace NiliBlazorAppWithAuthentication.Services.Implementations
                 Dosages = new List<double> { 1, 2, 3, 4 } }
         };
 
+        private readonly List<string> _medicationTypes = new List<string> 
+        {
+            "SSRI",
+            "Antidepressant",
+            "Mood Stabilizer",
+            "Antipsychotic",
+            "NDRI",
+            "Methylphenidate",
+            "Amphetamine"
+        };
+
         public List<Medication> GetMedications()
         {
             return _medications;
@@ -121,6 +142,16 @@ namespace NiliBlazorAppWithAuthentication.Services.Implementations
         public List<Medication> GetMedicationsByName(string name)
         {
             return _medications.Where(x => x.Name.Contains(name, StringComparison.InvariantCultureIgnoreCase)).ToList();
+        }
+
+        public List<string> GetMedicationTypes()
+        {
+            return _medicationTypes;
+        }
+
+        public List<Medication> GetMedicationsOfType(string type)
+        {
+            return typeMaping[type];
         }
 
         public List<Medication> GetMedicationsByType(string type)

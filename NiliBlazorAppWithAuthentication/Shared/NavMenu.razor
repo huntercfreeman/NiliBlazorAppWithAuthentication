@@ -1,4 +1,5 @@
 ﻿@inject NavigationManager NavigationManager
+@using NiliBlazorAppWithAuthentication.Components
 <div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">NiliBlazorAppWithAuthentication</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -19,7 +20,9 @@
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <div>Hello World!</div>
+            <a class="nav-link" href="javascript:void(0);">
+                <FilterMenu/>
+            </a>
         </li>
     </ul>
 </div>
