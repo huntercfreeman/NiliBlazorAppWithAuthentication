@@ -1,2 +1,12 @@
 ﻿@layout GuestLayout
-You are a guest
+@using NiliBlazorAppWithAuthentication.Common
+
+<div style="height: 80vh; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+    <img style="max-width: 20vw;" src="@WellKnownValues.AppMascot" />    
+    <span>@WellKnownValues.AppTitle</span><br />
+    <hr />
+    <div>
+        track your mood
+    </div>
+    <div>Start</div>
+</div>

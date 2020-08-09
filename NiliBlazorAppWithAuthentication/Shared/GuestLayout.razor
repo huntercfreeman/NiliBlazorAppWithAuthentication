@@ -1,9 +1,10 @@
 ﻿@inherits LayoutComponentBase
+@using NiliBlazorAppWithAuthentication.Common
 
-<div class="main">
+<div style="background-image: url('@(WellKnownValues.LandingPageBackground)') !important;" class="guestLanding main">
     <GuestNavbar/>
 
-    <div class="content px-4">
+    <div class="guestContent content px-4">
         @Body
     </div>
 </div>

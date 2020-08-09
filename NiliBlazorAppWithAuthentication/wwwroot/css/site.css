@@ -54,9 +54,7 @@ app {
         background-color: rgba(0,0,0,0.4);
     }
 
-    .sidebar .navbar-brand {
-        font-size: 1.1rem;
-    }
+    
 
     .sidebar .oi {
         width: 2rem;
@@ -101,9 +99,7 @@ app {
     padding-top: 1.1rem;
 }
 
-.navbar-toggler {
-    background-color: rgba(255, 255, 255, 0.1);
-}
+
 
 .valid.modified:not([type=checkbox]) {
     outline: 1px solid #26b050;
@@ -172,12 +168,45 @@ app {
         padding-right: 1.5rem !important;
     }
 
-    .navbar-toggler {
-        display: none;
-    }
+
 
     .sidebar .collapse {
         /* Never collapse the sidebar for wide screens */
         display: block;
     }
+}
+
+.guestLanding.main {
+    background: no-repeat center center;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+}
+
+.guestNavbar {
+    background-color: transparent;
+    color: white !important;
+}
+
+.guestNavbar a {
+    background-color: transparent;
+    color: white !important;
+}
+
+    .guestNavbar .dropdown-menu {
+        background-color: lightgray;
+        color: white !important;
+    }
+
+
+    .guestNavbar .navbar-toggler {
+        background-color: white;
+    }
+
+    .guestNavbar .btn-outline-success {
+        background-color: white;
+    }
+
+.guestContent {
+    color: white;
 }
