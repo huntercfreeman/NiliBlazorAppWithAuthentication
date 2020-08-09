@@ -23,7 +23,7 @@
     </div>
     <GenericGridList TItem="Medication" Items="MedicationsList">
         <ItemTemplate Context="medication">
-            <div draggable="true" style="margin-bottom: 5px; display: flex; flex-direction: column;">
+            <div @ondragstart="(() => MedicationBeingDragged = medication)" draggable="true" style="margin-bottom: 5px; display: flex; flex-direction: column;">
                 <div>
                     <h5>@medication.Name</h5>
                 </div>
@@ -32,9 +32,9 @@
     </GenericGridList>
 
     <div>
-        My Medications....
-        <div>
-            HELLO WORLD
+        Drag a to the prescription box to add a medication to your list.
+        <div @ondragenter="(() => IsHoveringPillContainer = true)" @onmouseup="OnDragEnd" @ondragend="OnDragEnd">
+            @(MedicationBeingEdited?.Name ?? "HERE!")
         </div>
     </div>
 </div>
