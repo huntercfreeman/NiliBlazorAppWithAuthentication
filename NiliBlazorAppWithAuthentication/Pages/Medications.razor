@@ -43,15 +43,6 @@
             <hr />
         }
     }
-
-
-
-    <div>
-        Drag a to the prescription box to add a medication to your list.
-        <div @ondragenter="(() => IsHoveringPillContainer = true)" @onmouseup="OnDragEnd" @ondragend="OnDragEnd">
-            @(MedicationBeingEdited?.Name ?? "HERE!")
-        </div>
-    </div>
 </div>
 
 @code {
