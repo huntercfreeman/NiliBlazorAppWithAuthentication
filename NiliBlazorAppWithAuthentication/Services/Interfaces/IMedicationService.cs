@@ -15,6 +15,8 @@ namespace NiliBlazorAppWithAuthentication.Services.Interfaces
         public List<Medication> FilteredSet { get; set; }
 
         public List<Medication> GetMedicationsByUser(string username);
+        
         public void AddMedicationToUser(string username, Medication medication);
+        public void DeleteMedicationToUser(string username, Medication medication);
     }
 }

@@ -262,5 +262,20 @@ namespace NiliBlazorAppWithAuthentication.Services.Implementations
                 usernameMedicationMap.Add(username, tempMedications);
             }
         }
+
+        public void DeleteMedicationToUser(string username, Medication medication)
+        {
+            try
+            {
+                usernameMedicationMap[username].Add(medication);
+            }
+            catch (Exception)
+            {
+                List<Medication> tempMedications = new List<Medication>();
+                tempMedications.Add(medication);
+
+                usernameMedicationMap.Add(username, tempMedications);
+            }
+        }
     }
 }
