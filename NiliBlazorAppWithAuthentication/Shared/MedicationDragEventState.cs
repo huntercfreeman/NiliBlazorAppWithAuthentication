@@ -16,5 +16,6 @@ namespace NiliBlazorAppWithAuthentication.Shared
             EventHandler handler = DragStartEventHandler;
             handler?.Invoke(this, e);
         }
+        public bool DropzoneIsHovered { get; set; }
     }
 }

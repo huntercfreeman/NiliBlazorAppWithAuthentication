@@ -32,7 +32,7 @@
                 @foreach (var medication in medicationList)
                 {
                     <div class="col-md-4 col-xl-3">
-                        <div @ondragstart="(() => { MedicationBeingDragged = medication; MedicationDragEventState.ReRenderEventInvoke(new EventArgs()); })" draggable="true" style="margin-bottom: 5px; display: flex; flex-direction: column;">
+                        <div @ondragend='OnDragEnd' @ondragstart="(() => { MedicationBeingDragged = medication; MedicationDragEventState.ReRenderEventInvoke(new EventArgs()); })" draggable="true" style="margin-bottom: 5px; display: flex; flex-direction: column;">
                             <div>
                                 <h5>@medication.Name</h5>
                             </div>

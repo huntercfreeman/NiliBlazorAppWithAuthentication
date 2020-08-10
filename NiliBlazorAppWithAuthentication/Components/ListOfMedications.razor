@@ -1,5 +1,5 @@
 ﻿<AuthorizeView>
-    <div @ondragenter='OnDragEnter' @ondragend='(() => Console.WriteLine("Drag End"))' @onmouseover="OnMouseOver" @onmouseout="(() => { IsMousedOver = false; StateHasChanged(); })" style="width: 100%; height: 100%; @DraggingCSS @OnMouseOverCSS">
+    <div @ondragenter='OnDragEnter' @ondragend='(() => Console.WriteLine("Drag End"))' @ondragleave="OnMouseOut" style="width: 100%; height: 100%; @DraggingCSS @OnMouseOverCSS">
         @foreach (var medication in MedicationService.GetMedicationsByUser(context.User.Identity.Name))
         {
             <div>
@@ -8,3 +8,4 @@
         }
     </div>
 </AuthorizeView>
+    

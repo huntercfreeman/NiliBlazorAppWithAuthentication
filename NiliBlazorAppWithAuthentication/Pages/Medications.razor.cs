@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using NiliBlazorAppWithAuthentication.Models;
 using NiliBlazorAppWithAuthentication.Services.Interfaces;
 using NiliBlazorAppWithAuthentication.Shared;
@@ -15,7 +16,8 @@ namespace NiliBlazorAppWithAuthentication.Pages
         public IMedicationService MedicationService { get; set; }
         [Inject]
         public MedicationDragEventState MedicationDragEventState { get; set; }
-
+        [Inject]
+        AuthenticationStateProvider AuthenticationStateProvider { get; set; }
         public Medication MedicationBeingDragged 
         {
             get => MedicationDragEventState.MedicationBeingDragged;
@@ -29,12 +31,16 @@ namespace NiliBlazorAppWithAuthentication.Pages
             base.OnInitialized();
             MedicationsList = MedicationService.GetMedications();
         }
-        private void OnDragEnd()
+        private async void OnDragEnd()
         {
-            if(MedicationBeingDragged != null) MedicationBeingEdited = MedicationBeingDragged;
-            MedicationBeingDragged = null;
-            StateHasChanged();
-            Console.WriteLine("Hello World");
+            if (MedicationDragEventState.DropzoneIsHovered)
+            {
+                AuthenticationState authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+                MedicationService.AddMedicationToUser(authenticationState.User.Identity.Name, MedicationDragEventState.MedicationBeingDragged);
+            }
+            MedicationDragEventState.MedicationBeingDragged = null;
+            MedicationDragEventState.DropzoneIsHovered = false;
+            MedicationDragEventState.ReRenderEventInvoke(new EventArgs());
         }
     }
 }

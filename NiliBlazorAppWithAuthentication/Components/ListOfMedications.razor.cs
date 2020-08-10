@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Web;
 using NiliBlazorAppWithAuthentication.Models;
 using NiliBlazorAppWithAuthentication.Services.Interfaces;
 using NiliBlazorAppWithAuthentication.Shared;
@@ -16,19 +17,22 @@ namespace NiliBlazorAppWithAuthentication.Components
         public MedicationDragEventState MedicationDragEventState { get; set; }
         [Inject]
         public IMedicationService MedicationService { get; set; }
-        [Inject] 
-        AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+        
         public string DraggingCSS 
         {
-            get => MedicationDragEventState.MedicationBeingDragged != null ? "background-color: green;" : "";
+            get => ((MedicationDragEventState.MedicationBeingDragged != null) && (!IsMousedOver)) ? "background-color: green;" : "";
         }
 
         public string OnMouseOverCSS
         {
-            get => MedicationDragEventState.MedicationBeingDragged != null ? "background-color: lawn-green;" : "";
+            get => ((MedicationDragEventState.MedicationBeingDragged != null) && (IsMousedOver)) ? "background-color: blue;" : "";
         }
 
-        private bool IsMousedOver { get; set; }
+        private bool IsMousedOver 
+        {
+            get => MedicationDragEventState.DropzoneIsHovered;
+            set => MedicationDragEventState.DropzoneIsHovered = value;
+        }
 
         protected override void OnInitialized()
         {
@@ -41,20 +45,21 @@ namespace NiliBlazorAppWithAuthentication.Components
             InvokeAsync(StateHasChanged);
         }
 
-        private void OnMouseOver()
+        private void OnDragEnter()
         {
-            IsMousedOver = true;
-            StateHasChanged();
+            if(MedicationDragEventState.MedicationBeingDragged != null)
+            {
+                IsMousedOver = true;
+                StateHasChanged();
+            }
         }
 
-        private async void OnDragEnter()
+        private void OnMouseOut(MouseEventArgs e)
         {
-            if (MedicationDragEventState.MedicationBeingDragged != null)
+            if (e.ClientX != 0 && e.ClientY != 0)
             {
-                AuthenticationState authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-                MedicationService.AddMedicationToUser(authenticationState.User.Identity.Name, MedicationDragEventState.MedicationBeingDragged);
-                MedicationDragEventState.MedicationBeingDragged = null;
-                await InvokeAsync(StateHasChanged);
+                IsMousedOver = false;
+                StateHasChanged();
             }
         }
 
